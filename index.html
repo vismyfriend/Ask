@@ -1,12 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="stylesheet" href="./styles/style.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vismyfriend</title>
+    <link rel="shortcut icon" type="image/jpg" href="./images/special logo square black and white.png"> 
+    <!-- fav icon -->
+    <title>vismyfriend</title>
 </head>
-<body>
-    
+
+<body class="body">
+    <main>
+
+        <div class="card_question card">
+            <div class="card__top">
+                <p class="card__value">what time do you usually swim?</p>
+            </div>
+            <div class="card__bottom">
+                <p class="card__hint">во сколько ты обычно плаваешь?</p>
+            </div>
+
+        </div>
+
+       
+        <img src="./images/cards.png" alt="deck of cards" class="deck">
+        
+
+        <img src="./images/cards.png" alt="deck of cards" class="deck">
+        <div class="card card_answer">
+            <div class="card__top">
+                <p class="card__value">what time do you usually swim?</p>
+            </div>
+            <div class="card__bottom">
+                <p class="card__hint">во сколько ты обычно плаваешь?</p>
+            </div>
+
+        </div>
+        <div class="buttons-container">
+            <button class="ask"> deck 1</button>
+            <button class="check">Shuffle</button>
+            <button class="next">Next</button>
+
+        </div>
+
+
+        <!-- <div class="notebook"> -->
+            <!-- <h1 class="notebook__title">
+                It is my turn to...
+            </h1> -->
+            <!-- <ol class="notebook__list">
+                <li class="notebook__manual manual-1"> Ваша очередь задавать вопрос или отвечать на вопрос?</li>
+                <li class="notebook__manual manual-2"> Ask: Задайте каждому один и тот же вопрос: "Как часто вы + глагол, который будет на карточке"? Когда все по очереди ответили, выберете чей ответ кажется более правдивым. Тот человек будет задавать следующий вопрос</li>
+                <li class="notebook__manual manual-3"> Если вопрос задают вам, то нажмите “ANSWER” чтобы увидеть свой ответ.</li>
+
+            </ol> -->
+            <!-- <img src="./images/blue pen.png" alt="a pen" class="pen"> -->
+            <!-- <p class="notebook__hint"></p>
+        </div> -->
+    </main>
+    <script src="./scripts/utils/ques-answ.js"></script>
+<script src="./scripts/app.js"></script>
+<!-- лучше подключать один скрип в другом - модули - потом переделаем -->
 </body>
+
 </html>
