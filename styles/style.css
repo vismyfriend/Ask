@@ -1,165 +1,89 @@
 @import url(https://fonts.googleapis.com/css?family=Neucha:regular);
 @import url(../vendor/normalize.css);
 
-.body {
-    background-color: #000000;
-    font-family: 'Neucha';
-    padding: 0 12px;
-    font-size: 20px;
 
-}
-
-.card {
-    background-image: url(../images/card.png);
-    width: 222px;
-    height: 145px;
-    background-size: cover;
-    position: absolute;
-    top: 82px;
-    left: calc(50% - 111px);
-    /* магия математики от Andrew - выровнили по середине width поделили на два */
-}
-.card_question {
-    top: 45px;
-    left: calc(50% - 111px);
-    transform: rotate(185deg);
-    
-}
-.card_answer {
-    display: none;
-    top: 310px;
-    left: calc(50% - 111px);
-transform: rotate(351deg);
+/* Убедимся, что html и body занимают полную высоту */
+html, body {
+    height: 100%; /* Высота 100% для html и body */
+    margin: 0; /* Убираем отступы по умолчанию */
+    font-family: Arial, sans-serif; /* Устанавливаем чистый шрифт */
+    background-color: #f0f0f0; /* Светлый цвет фона */
+    display: flex; /* Flexbox для выравнивания содержимого */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
 }
 
-.card__top {
-    border-bottom: dashed 1px #000;
-}
-
-.card__top {
-    display: none;
-    height: 50%;
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-.card__bottom {
-    display: none;
-    height: 50%;
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-.card__hint {
-    filter: blur(4px);
-
-}
-
-.card__hint.show {
-    filter: none;
-}
-
-.card__value,
-.card__hint {
-    margin: 0%;
-    text-align: center;
-    /* у параграфа по умолчанию margins - у списков есть по умолчанию padding */
-}
-
-.card.open {
-    animation: card-flip 0.4s ease forwards;
-    background-image: none;
-    background-color: white;
-    height: 350px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px 0 #000;
-    /* тени визуализация */
-    /* 50% это круг */
-}
-
-.card.open .card__top,
-.card.open .card__bottom {
+/* Контейнер для игры */
+.game-container {
     display: flex;
+    flex-direction: column; /* Элементы располагаются друг под другом */
+    justify-content: center; /* Центрируем элементы по вертикали */
+    align-items: center; /* Центрируем элементы по горизонтали */
+    background-color: #ffffff; /* Белый фон */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 10px; /* Скругленные углы */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Тень */
+    max-width: 800px; /* Максимальная ширина */
+    width: 90%; /* Полная ширина с отступами */
 }
 
-.deck {
-    width: 280px;
-
-    margin: 0 20px calc((100% - 300px) / 2);
-    /* магия математики от Andrew - выровнили по середине */
+/* Стили для кнопки */
+/* Стили для кнопки */
+#tap-button {
+    background-color: #4CAF50; /* Зеленый фон */
+    color: white; /* Белый текст */
+    padding: 15px; /* Отступы для размера */
+    border: none; /* Убираем границу */
+    border-radius: 50%; /* Круглая кнопка */
+    cursor: pointer; /* Курсор в виде указателя при наведении */
+    font-size: 24px; /* Размер шрифта */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Тень */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Плавный переход */
+    display: block; /* Блочное отображение для лучшего контроля */
+    margin: 20px auto; /* Центрируем кнопку и добавляем отступы */
+    width: 100px; /* Ширина кнопки */
+    height: 100px; /* Высота кнопки */
+    text-align: center; /* Центрируем текст внутри кнопки */
 }
 
-button {
-    width: 100px;
-    height: 35px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    color: #000;
-    
-
+/* Эффект при наведении на кнопку */
+#tap-button:hover {
+    background-color: #45a049; /* Темно-зеленый при наведении */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Более глубокая тень */
+    transform: scale(1.1); /* Увеличиваем кнопку при наведении */
 }
 
-.ask {
-    display: none;
-    background: linear-gradient(143.84deg, rgba(237, 193, 193, 0.008) 14.48%, rgba(254, 254, 254, 0.2) 49.03%, rgba(162, 40, 40, 0.2) 82.47%), #FA8181;
-}
-
-.check {
-    background: linear-gradient(143.84deg, rgba(237, 193, 193, 0.008) 14.48%, rgba(254, 254, 254, 0.2) 49.03%, rgba(162, 40, 40, 0.2) 82.47%), #FFF27B;
-}
-
-.next {
-    background: linear-gradient(143.84deg, rgba(237, 193, 193, 0.008) 14.48%, rgba(254, 254, 254, 0.2) 49.03%, rgba(162, 40, 40, 0.2) 82.47%), #80FF01;
-
-}
-
-.finish {
-    background-color: gray;
-}
-
-.buttons-container {
-    display: flex;
-    justify-content: space-evenly;
-    /* padding-right:  71px; */
-    max-width: 480px;
-    margin: 0 auto;
-}
-
-.pen {
-    position: absolute;
-    width: 50px;
-    top: -85px;
-    right: 33px;
-    transform: rotate(10deg);
-
-
-}
-
-.notebook__manual {
-    margin-bottom: 15px;
-}
-
-.notebook__hint {
-    color: #6BAFC5;
+/* Эффект свечения при наведении */
+#tap-button:focus {
+    outline: none; /* Убираем обводку по умолчанию */
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* Свечение при фокусе */
 }
 
 
-@keyframes card-flip {
-    from {
-        transform: rotateX(0d);
-    }
+/* Стили для отображения слова */
+#word-display {
+    position: absolute; /* Устанавливаем позиционирование */
+    top: 50%; /* Центрируем по вертикали */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translate(-50%, -50%); /* Центрируем по обеим осям */
+    font-size: 32px; /* Размер шрифта для отображения слова */
+    font-weight: bold; /* Жирный шрифт для выделения */
+    opacity: 0; /* Начальное состояние: скрыто */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Плавный переход для opacity и transform */
+}
 
-    /* break points - сколько угодно может быть */
-    50% {
-        transform: rotateX(90deg);
-    }
+.flying-word {
+    position: absolute; /* Абсолютное позиционирование */
+    user-select: none;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out; /* Плавная анимация */
+    opacity: 1; /* Начальная прозрачность */
+}
 
-    to {
-        transform: rotateX(0deg);
-    }
+
+
+
+/* Счётчик нажатий */
+.counter {
+    font-size: 18px; /* Размер шрифта */
+    color: #333; /* Цвет текста */
 }

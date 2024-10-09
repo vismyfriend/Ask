@@ -1,117 +1,64 @@
-const askMe = document.querySelector(".ask")
-const check = document.querySelector(".check")
-const next = document.querySelector(".next")
-const cardQuestion = document.querySelector(".card_question")
-const cardAnswer = document.querySelector(".card_answer")
-const cardValueQuestion = cardQuestion.querySelector(".card__value")
-const cardHintQuestion = cardQuestion.querySelector(".card__hint")
-// document - ищет по всему файлу(документу)
-const cardValueAnswers = cardAnswer.querySelector(".card__value")
-const cardHintAnswers = cardAnswer.querySelector(".card__hint")
-const manual1 = document.querySelector(".manual-1")
-const manual2 = document.querySelector(".manual-2")
-const manual3 = document.querySelector(".manual-3")
-const hint = document.querySelector(".notebook__hint")
-let value = null
-let questionNumber = 0
-let answerNumber = 0
+// Получаем кнопку, счётчик и место для отображения слов
+const tapButton = document.getElementById('tap-button'); // Кнопка, по которой кликаем
+const tapCounter = document.getElementById('tap-counter'); // Счётчик нажатий
 
+// Начальное значение счётчика
+let counter = 0; // Переменная для хранения количества нажатий
 
-let shuffledQuestions = null
+// Обработчик клика по кнопке
+tapButton.addEventListener('click', () => {
+    // Увеличиваем счётчик нажатий
+    counter++; // Увеличиваем счётчик на 1
+    tapCounter.textContent = counter; // Обновляем отображение счётчика
 
-let shuffledAnswers = null
+    // Получаем случайное слово из массива слов
+    const randomWord = words[Math.floor(Math.random() * words.length)]; // Выбираем случайное слово
 
+    // Создаем новый элемент для слова
+    const wordElement = document.createElement('div');
+    wordElement.textContent = randomWord; // Устанавливаем текст слова
+    wordElement.className = 'flying-word'; // Присваиваем класс для стилей
 
-function shuffleDecks() {
-    shuffledQuestions = questions.sort(function () {
-        return Math.random() - 0.5;
-    });
-    shuffledAnswers = answers.sort(function () {
-        return Math.random() - 0.5;
-    });
-    questionNumber= 0
-    answerNumber = 0
-    askMe.classList.remove("finish")
-    askMe.disabled = false
-    next.classList.remove("finish")
-    next.disabled = false
-    cardQuestion.classList.remove("open")
-    cardQuestion.style.border = 'none';
-    cardAnswer.classList.remove("open")
-    cardAnswer.style.border = 'none';
+    // Определяем смещение в зависимости от направления
+    const direction = Math.floor(Math.random() * 3); // Генерируем случайное направление
+    let offsetX = 0; // Горизонтальное смещение
+    let offsetY = -50; // Вертикальное смещение (сдвигаем вверх на 50px)
 
-}
-
-function getAnswers() {
-    if (answerNumber < shuffledAnswers.length) {
-
-
-        cardAnswer.classList.remove("open")
-        value = shuffledAnswers[answerNumber]
-
-        cardHintAnswers.classList.remove("show")
-        // ищет объект в массиве и сравнивает с id
-        setTimeout(function () { cardAnswer.classList.add("open") }, 0);
-        cardAnswer.style.border = "solid 4px rgb(235, 70, 70)";
-        cardValueAnswers.textContent = value.eng
-        cardHintAnswers.textContent = value.ru
-        answerNumber++
-    } else {
-        askMe.classList.add("finish")
-        // foo.setAttribute('disabled', 'disabled')
-        askMe.disabled = true
+    // Устанавливаем смещение в зависимости от направления
+    switch (direction) {
+        case 0: // Вверх
+            offsetX = 0;  // Никакого горизонтального смещения
+            break;
+        case 1: // Влево
+            offsetX = -30; // Сдвиг влево на 30px
+            break;
+        case 2: // Вправо
+            offsetX = 30;  // Сдвиг вправо на 30px
+            break;
     }
 
-}
+    // Устанавливаем стили для нового слова
+    wordElement.style.position = 'absolute'; // Позиционирование абсолютное
+    wordElement.style.left = '50%'; // Центрируем по горизонтали
+    wordElement.style.top = '50%'; // Центрируем по вертикали
+    wordElement.style.opacity = '1'; // Делаем слово видимым
 
-function showQuestionsManual() {
+    // Добавляем новое слово в body
+    document.body.appendChild(wordElement); // Добавляем слово в body
 
-}
-function showCheckManual() {
-}
+    // Используем тайм-аут для анимации
+    setTimeout(() => {
+        // Слово вылетает в нужном направлении
+        wordElement.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px)) scale(1.2)`; // Сдвигаем текст в нужном направлении
+    }, 100); // Небольшая задержка перед анимацией
 
+    // Убираем слово после анимации
+    setTimeout(() => {
+        wordElement.style.opacity = '0'; // Скрываем слово
+    }, 800); // Задержка перед скрытием слова
 
-
-
-// глагол на первом месте
-function getquestions() {
-    if (questionNumber < shuffledQuestions.length) {
-        cardQuestion.classList.remove("open")
-
-        setTimeout(function () { cardQuestion.classList.add("open") }, 0);
-        value = shuffledQuestions[questionNumber]
-        cardHintQuestion.classList.remove("show")
-        // обновляет blur на каждой новой карточке
-        cardValueQuestion.textContent = value.eng
-        cardHintQuestion.textContent = value.ru
-        cardQuestion.style.border = "solid 4px rgb(5, 184, 5)";
-        questionNumber++
-    } else {
-        next.classList.add("finish")
-        // foo.setAttribute('disabled', 'disabled')
-        next.disabled = true
-    }
-}
-
-
-shuffleDecks ()
-// сразу перемешивание при входе 
-
-cardHintQuestion.addEventListener("click", () => {
-    cardHintQuestion.classList.toggle("show")
-})
-cardHintAnswers.addEventListener("click", () => {
-    cardHintAnswers.classList.toggle("show")
-})
-
-askMe.addEventListener("click", getAnswers)
-check.addEventListener("click", shuffleDecks)
-next.addEventListener("click", getquestions)
-cardQuestion.addEventListener("click", () => {
-    cardQuestion.classList.contains("open") ? null : getquestions()
-    
-})
-cardAnswer.addEventListener("click", () => {
-    cardAnswer.classList.contains("open") ? null : getAnswers()
-    //  тоже самое, что if else 
-})
+    // Удаляем элемент из DOM через 1.6 секунды, чтобы избежать перегрузки
+    setTimeout(() => {
+        wordElement.remove(); // Удаляем элемент
+    }, 1600); // Удаляем элемент через 1.6 секунды
+});
